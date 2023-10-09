@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """a module that create asyncio tasks."""
 import asyncio
+from typing import List
 
 task_wait_random = __import__('3-tasks').task_wait_random
 
 
-async def task_wait_n(n: int, max_delay: int) -> list:
+async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """
     Run wait_n(n, max_delay) concurrently using asyncio.Tasks.
 
@@ -16,5 +17,7 @@ async def task_wait_n(n: int, max_delay: int) -> list:
     Returns:
         list: List of delays from wait_random.
     """
-    tasks = [task_wait_random(max_delay) for _ in range(n)]
-    return await asyncio.gather(*tasks)
+    wait_times = await asyncio.gather(
+        *tuple(map(lambda _: task_wait_random(max_delay), range(n)))
+    )
+    return sorted(wait_times)
