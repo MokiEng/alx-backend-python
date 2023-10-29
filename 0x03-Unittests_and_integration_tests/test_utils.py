@@ -31,9 +31,8 @@ class TestAccessNestedMap(unittest.TestCase):
             exception: Exception,
             ) -> None:
         """exception message testing."""
-        with self.assertRaises(KeyError) as context:
+        with self.assertRaises(exception):
             access_nested_map(nested_map, path)
-        self.assertEqual(str(context.exception), exception)
 
 
 if __name__ == '__main__':
