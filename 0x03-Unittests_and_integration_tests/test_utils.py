@@ -2,6 +2,7 @@
 """Parameterize a unit test module."""
 import unittest
 from parameterized import parameterized
+from typing import Dict, Tuple, Union
 from utils import access_nested_map
 
 
@@ -23,10 +24,12 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b"), "Key 'b' not found in dictionary")
     ])
 
-    def test_access_nested_map_exception(
+     def test_access_nested_map_exception(
             self,
-            nested_map, path,
-            expected_exception_message):
+            nested_map: Dict,
+            path: Tuple[str],
+            exception: Exception,
+            ) -> None:
         """exception message testing."""
         with self.assertRaises(KeyError) as context:
             access_nested_map(nested_map, path)
