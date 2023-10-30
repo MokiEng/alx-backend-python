@@ -2,13 +2,17 @@
 """GithubOrgClient class's org modules."""
 
 import unittest
-from unittest.mock import patch
-from unittest.mock import MagicMock
-from unittest.mock import Mock
-from unittest.mock import PropertyMock
+from unittest.mock import (
+    MagicMock,
+    Mock,
+    PropertyMock,
+    patch,
+)
 from parameterized import parameterized,  parameterized_class
 from typing import Dict
-from client import GithubOrgClient
+from client import (
+    GithubOrgClient
+)
 from fixtures import TEST_PAYLOAD
 from requests import HTTPError
 
@@ -110,7 +114,3 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def tearDownClass(cls) -> None:
         """Removes the class fixtures after running all tests."""
         cls.get_patcher.stop()
-
-
-if __name__ == '__main__':
-    unittest.main()
