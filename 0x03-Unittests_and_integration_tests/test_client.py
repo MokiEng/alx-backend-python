@@ -3,8 +3,14 @@
 
 import unittest
 from unittest.mock import patch
-from parameterized import parameterized
+from unittest.mock import MagicMock
+from unittest.mock import Mock
+from unittest.mock import PropertyMock
+from parameterized import parameterized,  parameterized_class
+from typing import Dict
 from client import GithubOrgClient
+from fixtures import TEST_PAYLOAD
+from requests import HTTPError
 
 
 class TestGithubOrgClient(unittest.TestCase):
