@@ -50,11 +50,13 @@ class TestGithubOrgClient(unittest.TestCase):
         ({'license': {'key': "bsd-3-clause"}}, "bsd-3-clause", True),
         ({'license': {'key': "bsl-1.0"}}, "bsd-3-clause", False),
     ])
-    def test_has_license(self, repo: Dict, key: str, expected: bool) -> None:
-        """to test the `has_license` method."""
-        gh_org_client = GithubOrgClient("google")
-        client_has_licence = gh_org_client.has_license(repo, key)
-        self.assertEqual(client_has_licence, expected)
+    def test_has_license(self, repo, license_key, expected_result):
+        """Mock the public_repos method to return a known payload."""
+        with patch('client.GithubOrgClient.public_repos') as mock_public_repos:
+            mock_public_repos.return_value = [repo]
+            client = GithubOrgClient("testorg")
+            result = client.has_license(license_key)
+            self.assertEqual(result, expected_result)
 
 
 @parameterized_class([
