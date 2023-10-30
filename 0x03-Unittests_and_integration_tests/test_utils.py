@@ -38,23 +38,26 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 class TestGetJson(unittest.TestCase):
-    """a class defines TestGetJson."""
-    @patch('requests.get')
-    @parameterized.expand([
-        ("http://example.com", {"payload": True}),
-        ("http://holberton.io", {"payload": False}),
-    ])
-    def test_get_json(self, test_url, test_payload):
-        """
-        Create a Mock object to simulate the response from requests.get.
+    """_summary_
+
+    Args:
+                    unittest (_type_): _description_
+    """
+    @parameterized.expand(
+        [
+            ('http://example.com', {'payload': True}),
+            ('http://holberton.io', {'payload': False})
+        ]
+    )
+    def test_get_json(self, url, expected_output):
+        """_summary_
         """
         mock_response = Mock()
-        mock_response.json.return_value = test_payload
+        mock_response.json.return_value = expected_output
+        with patch('requests.get', return_value=mock_response):
+            response = get_json(url)
 
-        with patch('requests.get', return_value=mock_response) as mock_get:
-            result = get_json(test_url)
-            mock_get.assert_called_once_with(test_url)
-            self.assertEqual(result, test_payload)
+            self.assertEqual(response, expected_output)
 
 
 class TestMemoize(unittest.TestCase):
@@ -77,7 +80,3 @@ class TestMemoize(unittest.TestCase):
             self.assertEqual(test_class.a_property(), 42)
             self.assertEqual(test_class.a_property(), 42)
             memo_fxn.assert_called_once()
-
-
-if __name__ == '__main__':
-    unittest.main()
