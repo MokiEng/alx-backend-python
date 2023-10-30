@@ -56,7 +56,7 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(repos, expected_result)
         mock_get_json.assert_called_once()
 
-   @parameterized.expand([
+     @parameterized.expand([
         ({'license': {'key': "bsd-3-clause"}}, "bsd-3-clause", True),
         ({'license': {'key': "bsl-1.0"}}, "bsd-3-clause", False),
     ])
